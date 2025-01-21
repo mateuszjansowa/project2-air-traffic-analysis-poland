@@ -1,6 +1,10 @@
 package model;
 
-// https://www.baeldung.com/java-record-keyword
-public record FlightRecord() {
-
+public record FlightRecord(String title,
+                           TrafficType trafficType,
+                           String country,
+                           int year,
+                           String timePeriod,
+                           int passengerCount,
+                           double marketShare) {
 }
