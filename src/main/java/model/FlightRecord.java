@@ -4,7 +4,7 @@ public record FlightRecord(String title,
                            TrafficType trafficType,
                            String country,
                            int year,
-                           String timePeriod,
+                           TimePeriod timePeriod,
                            int passengerCount,
                            double marketShare) {
 }

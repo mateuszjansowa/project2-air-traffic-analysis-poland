@@ -1,10 +1,12 @@
 package service;
 
 import model.FlightRecord;
+import model.TimePeriod;
 import model.TrafficType;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,16 +45,20 @@ public class FlightDataLoader {
     }
 
     private FlightRecord getFlightRecord(String line) {
-        System.out.println(line);
-        String[] fields = line.split(",");
+        String[] fields = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+
+        if (fields.length != 7) {
+            throw new IllegalArgumentException("Invalid data format in the line: " + line);
+        }
 
         String title = fields[0];
         TrafficType trafficType = TrafficType.fromPolish(fields[1]);
+        String country = fields[2];
+        int year = Integer.parseInt(fields[3]);
+        TimePeriod timePeriod = TimePeriod.fromPolish(fields[4]);
+        int passengerCount = Integer.parseInt(fields[5]);
+        double marketShare = Double.parseDouble(fields[6]);
 
-        if (fields.length != 7) {
-            throw new IllegalArgumentException("Invalid data format in the line");
-        }
-
-        return new FlightRecord(title, trafficType, "", 2024, "1Q", 100, 0.0001);
+        return new FlightRecord(title, trafficType, country, year, timePeriod, passengerCount, marketShare);
     }
 }

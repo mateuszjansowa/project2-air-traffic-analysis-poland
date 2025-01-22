@@ -11,6 +11,12 @@ public enum TrafficType {
     );
 
     public static TrafficType fromPolish(String entry) {
-        return MAPPING.getOrDefault(entry, null);
+        TrafficType type = MAPPING.get(entry);
+
+        if (type == null) {
+            throw new IllegalArgumentException("Unknown traffic type: " + entry);
+        }
+
+        return type;
     }
 }
