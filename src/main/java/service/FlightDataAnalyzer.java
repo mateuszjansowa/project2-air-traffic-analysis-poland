@@ -16,7 +16,10 @@ public class FlightDataAnalyzer {
     }
 
     public int totalPassengersByYear(int year) {
-        return -1;
+        return flightRecords.stream()
+                .filter(flightRecord -> flightRecord.year() == year)
+                .mapToInt(FlightRecord::passengerCount) // IntStream extracts the passengerCount as an int
+                .sum();
     }
 
     public String busiestDestination(int year) {

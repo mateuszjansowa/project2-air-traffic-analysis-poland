@@ -17,6 +17,9 @@ public class Main {
             List<FlightRecord> flightRecords = flightDataLoader.parseCsv();
             FlightDataAnalyzer flightDataAnalyzer = new FlightDataAnalyzer(flightRecords);
 
+            System.out.println("Passengers by year 2022: " + flightDataAnalyzer.totalPassengersByYear(2022));
+            System.out.println("Passengers by year 2023: " + flightDataAnalyzer.totalPassengersByYear(2023));
+            System.out.println("Passengers by year 2024: " + flightDataAnalyzer.totalPassengersByYear(2024));
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error executing main class", e);
         }
