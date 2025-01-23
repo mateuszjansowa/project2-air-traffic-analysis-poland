@@ -9,14 +9,14 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class FlightDataAnalyzer {
-    private List<FlightRecord> flightRecords;
+    private final List<FlightRecord> flightRecords;
 
     public FlightDataAnalyzer(List<FlightRecord> flightRecords) {
         if (flightRecords == null || flightRecords.isEmpty()) {
             throw new IllegalArgumentException("flightRecords cannot be empty");
         }
 
-        this.flightRecords = flightRecords;
+        this.flightRecords = List.copyOf(flightRecords); // immutable list
     }
 
     private Stream<FlightRecord> filterByYear(int year) {
@@ -46,6 +46,12 @@ public class FlightDataAnalyzer {
 
     public void passengerTrendsByCity(String city, int endYear, int startYear) {
         double passengerCountStart = getPassengersByCityAndYear(city, startYear);
+
+        if(passengerCountStart == 0) {
+            System.out.printf("%s trend: No data for the year %d%n", city, startYear);
+            return;
+        }
+
         double passengerCountEnd = getPassengersByCityAndYear(city, endYear);
 
         double trend = ((passengerCountEnd - passengerCountStart) / passengerCountStart) * 100;

@@ -5,13 +5,14 @@ import model.TimePeriod;
 import model.TrafficType;
 
 import java.io.*;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FlightDataLoader {
-    private final static String charsetName = String.valueOf(StandardCharsets.UTF_8);
+    private final static Charset charset= StandardCharsets.UTF_8;
     private String filePath;
 
     public FlightDataLoader(String filePath) throws IllegalArgumentException {
@@ -24,7 +25,7 @@ public class FlightDataLoader {
 
     public List<FlightRecord> parseCsv() {
         List<FlightRecord> flightRecords = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), charsetName))) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), charset))) {
             reader.readLine(); // skip headers
 
             String line;
