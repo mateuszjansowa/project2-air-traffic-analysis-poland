@@ -5,6 +5,7 @@ import model.FlightRecord;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class FlightDataAnalyzer {
@@ -36,8 +37,19 @@ public class FlightDataAnalyzer {
                 .orElse("No data");
     }
 
-    public void passengerTrendsByCity(String city) {
-        // TODO - do not complete for me
-        System.out.println("London -> " + "12%");
+    private double getPassengersByCityAndYear(String city, int year) {
+        return flightRecords.stream()
+                .filter(flightRecord -> flightRecord.city().equalsIgnoreCase(city) && flightRecord.year() == year)
+                .mapToDouble(FlightRecord::passengerCount)
+                .sum();
+    }
+
+    public void passengerTrendsByCity(String city, int endYear, int startYear) {
+        double passengerCountStart = getPassengersByCityAndYear(city, startYear);
+        double passengerCountEnd = getPassengersByCityAndYear(city, endYear);
+
+        double trend = ((passengerCountEnd - passengerCountStart) / passengerCountStart) * 100;
+
+        System.out.printf("%s trend: %.4f%%%n", city, trend);
     }
 }

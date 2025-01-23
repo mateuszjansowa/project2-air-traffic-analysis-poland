@@ -23,6 +23,10 @@ public class Main {
 
             System.out.println("Busiest destination in year 2022: " + flightDataAnalyzer.busiestDestination(2022));
             System.out.println("Busiest destination in year 2023: " + flightDataAnalyzer.busiestDestination(2023));
+
+            flightDataAnalyzer.passengerTrendsByCity("Oslo", 2023, 2022);
+            flightDataAnalyzer.passengerTrendsByCity("Londyn", 2023, 2022);
+            flightDataAnalyzer.passengerTrendsByCity("Frankfurt", 2023, 2022);
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error executing main class", e);
         }
